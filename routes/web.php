@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Роуты главной страницы
 Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
+// Роуты админ панели
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function() {
     Route::group(['namespace' => 'Main'], function () {
         Route::get('/', 'IndexController')->name('main.index');
+    });
+    Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
+        Route::get('/', 'IndexController')->name('category.index');
     });
 });
 
