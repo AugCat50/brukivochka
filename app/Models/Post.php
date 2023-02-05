@@ -10,5 +10,7 @@ class Post extends Model
     use HasFactory;
 
     protected $table   = 'posts';
-    protected $quarded = false;
+    
+    //Аналог fillable, просто отключает защиту на запись всех полей
+    protected $guarded = false;
 }

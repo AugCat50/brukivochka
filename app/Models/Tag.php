@@ -10,5 +10,7 @@ class Tag extends Model
     use HasFactory;
 
     protected $table   = 'tags';
-    protected $quarded = false;
+    
+    //Аналог fillable, просто отключает защиту на запись всех полей
+    protected $guarded = false;
 }

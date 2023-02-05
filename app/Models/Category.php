@@ -9,6 +9,14 @@ class Category extends Model
 {
     use HasFactory;
 
+    //Явная привязка к таблице
     protected $table   = 'categories';
-    protected $quarded = false;
+    
+    //Аналог fillable, просто отключает защиту на запись всех полей
+    protected $guarded = false;
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'category_id', 'id');
+    }
 }

@@ -10,5 +10,7 @@ class PostTag extends Model
     use HasFactory;
 
     protected $table   = 'post_tags';
-    protected $quarded = false; 
+    
+    //Аналог fillable, просто отключает защиту на запись всех полей
+    protected $guarded = false; 
 }
