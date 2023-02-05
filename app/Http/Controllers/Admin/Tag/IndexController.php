@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Category;
+namespace App\Http\Controllers\Admin\Tag;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,8 +11,8 @@ class IndexController extends Controller
     //Метод по умолчанию
     public function __invoke()
     {
-        $categories = Category::all();
+        $tags = Tag::all();
         
-        return view('admin.category.index', compact('categories'));
+        return view('admin.tag.index', compact('tags'));
     }
 }
