@@ -28,6 +28,13 @@
                 <div class="col-12">              
                     <form action="{{ route('admin.post.store') }}" method="POST" class="" enctype="multipart/form-data">
                         @csrf
+                        <div class="form-group w-25">
+                            <label>Название поста</label>
+                            <input type="text" class="form-control" name="title" placeholder="Введите имя поста" value="{{ old('title') }}">
+                            @error('title')
+                                <div class="text-danger">Это поле должно быть заполнено</div>
+                            @enderror
+                        </div>
 
                         <!-- select category -->
                         <div class="form-group w-25">
@@ -43,11 +50,25 @@
                             </select>
                         </div>
 
-                        <div class="form-group w-25">
-                            <input type="text" class="form-control" name="title" placeholder="Введите имя поста" value="{{ old('title') }}">
-                            @error('title')
-                                <div class="text-danger">Это поле должно быть заполнено</div>
-                            @enderror
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                            <label>Multiple</label>
+                            <div class="select2-purple">
+                                <!-- В name обязательно массив, чтобы получать массив значений, а не только последнее выбранное -->
+                                <select class="select2" name="tag_ids[]" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                    @foreach ($tags as $tag)
+                                        <!-- Если tag_ids массив, то ищем в нём вовпадение с tag->id, если есть возвращаем selected -->
+                                        <option 
+                                            {{ is_array( old('tag_ids') ) && in_array($tag->id, old('tag_ids')) ? ' selected' : '' }} 
+                                            value="{{ $tag->id }}"
+                                            >
+                                            {{ $tag->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            </div>
+                            <!-- /.form-group -->
                         </div>
 
                         <div class="form-group w-25">

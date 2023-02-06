@@ -13,4 +13,9 @@ class Post extends Model
     
     //Аналог fillable, просто отключает защиту на запись всех полей
     protected $guarded = false;
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
+    }
 }
