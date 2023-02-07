@@ -20,8 +20,8 @@ class StoreController extends Controller
             $previewImage = $data['preview_image'];
             $mainImage    = $data['main_image'];
     
-            $previewImagePath = Storage::put('/images', $previewImage);
-            $mainImagePath    = Storage::put('/images', $mainImage);
+            $previewImagePath = Storage::disk('public')->put('/images', $previewImage);
+            $mainImagePath    = Storage::disk('public')->put('/images', $mainImage);
     
             //Специально сделаю это явно
             $data['preview_image'] = $previewImagePath;

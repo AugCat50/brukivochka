@@ -52,7 +52,7 @@
 
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
-                            <label>Multiple</label>
+                            <label>Тэги</label>
                             <div class="select2-purple">
                                 <!-- В name обязательно массив, чтобы получать массив значений, а не только последнее выбранное -->
                                 <select class="select2" name="tag_ids[]" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
