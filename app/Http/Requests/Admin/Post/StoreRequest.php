@@ -33,4 +33,17 @@ class StoreRequest extends FormRequest
             'tag_ids.*'     => 'nullable|integer|exists:tags,id',
         ];
     }
+
+    /**
+     * Получить сообщения об ошибках для определенных правил валидации.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required'   => 'Поле "Имя поста" должно быть заполнено!',
+            'content.required' => 'Поле "Текст поста" должно быть заполнено!',
+        ];
+    }
 }
