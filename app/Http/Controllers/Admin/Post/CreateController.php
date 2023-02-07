@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Post;
 
-use App\Models\Tag;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
 
-class CreateController extends Controller
+class CreateController extends BaseController
 {
-    //Метод по умолчанию
+    //Метод по умолчанию.
     public function __invoke()
     {
         $categories = Category::all();
