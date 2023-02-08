@@ -33,7 +33,7 @@
                             <h2>Id: {{ $tag->id}}</h2>
                             <input type="text" class="form-control" name="title" placeholder="" value="{{ $tag->title }}">
                             @error('title')
-                                <div class="text-danger">Это поле должно быть заполнено</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <input type="submit" class="btn btn-primary" value="Добавить">

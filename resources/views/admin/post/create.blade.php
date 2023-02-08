@@ -32,7 +32,7 @@
                             <label>Название поста</label>
                             <input type="text" class="form-control" name="title" placeholder="Введите имя поста" value="{{ old('title') }}">
                             @error('title')
-                                <div class="text-danger">Это поле должно быть заполнено</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -102,7 +102,7 @@
                                 {{ old('content') }}
                             </textarea>
                             @error('content')
-                                <div class="text-danger">Это поле должно быть заполнено</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
