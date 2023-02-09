@@ -44,13 +44,13 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Введите пароль</label>
                             <input type="text" class="form-control" name="password" placeholder="Введите пароль пользователя" value="{{ old('password') }}">
                             @error('password')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <!-- select role -->
                         <div class="form-group w-50">
