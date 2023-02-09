@@ -19,13 +19,7 @@ class StoreController extends Controller
         $data = $request->validated();
         //Здесь можно ввести сервисы и работать через них, но в данном случае это не нужно
 
-        $password         = Str::random(10);
-        $data['password'] = Hash::make($password);
-        
-        //Возвращает модель
-        //Рекомендуется прочесть документацию. Так же см. Бл.7
-        // User::firstOrCreate($data);
-        $user = User::firstOrCreate(['email' => $data['email']], $data);
+
         Mail::to($data['email'])->send(new PasswordMail($password));
 
         //Событие регистрации пользователя, аргумент - модель. Отправляет письмо с верификацией почты.
