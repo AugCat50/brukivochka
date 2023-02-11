@@ -2,8 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
+use App\Mail\User\PasswordMail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,11 +39,16 @@ class StoreUserJob implements ShouldQueue
      */
     public function handle()
     {
-        $password         = Str::random(10);
+        $password               = Str::random(10);
         $this->data['password'] = Hash::make($password);
         
         //Возвращает модель
         //Рекомендуется прочесть документацию. Так же см. Бл.7
-        $user = User::firstOrCreate(['email' => $data['email']], $data);
+        $user = User::firstOrCreate(['email' => $this->data['email']], $this->data);
+
+        Mail::to($this->data['email'])->send(new PasswordMail($password));
+
+        //Событие регистрации пользователя, аргумент - модель. Отправляет письмо с верификацией почты.
+        event(new Registered($user));
     }
 }
