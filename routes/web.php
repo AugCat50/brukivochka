@@ -68,6 +68,26 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     });
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::group(['namespace' => 'App\Http\Controllers\Personal', 'prefix' => 'personal'], function () {
+        Route::group(['namespace' => 'Main'], function () {
+            Route::get('/', 'IndexController')->name('personal.main.index');
+        });
+
+        Route::group(['namespace' => 'Liked'], function () {
+            Route::get   ('/liked' , 'IndexController')  ->name('personal.liked.index');   
+            Route::delete('/{post}', 'DeleteController')->name('personal.liked.delete');
+        });
+
+        Route::group(['namespace' => 'Comment'], function () {
+            Route::get   ('/comment'         , 'IndexController')  ->name('personal.comment.index');
+            Route::get   ('/{comment}/edit'  , 'EditController')   ->name('personal.comment.edit');
+            Route::patch ('/{comment}'       , 'UpdateController') ->name('personal.comment.update');
+            Route::delete('/{comment}/delete', 'DeleteController') ->name('personal.comment.delete');
+        });
+    });
+});
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
