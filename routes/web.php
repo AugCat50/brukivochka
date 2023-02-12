@@ -19,6 +19,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
+Route::group(['namespace' => 'App\Http\Controllers\Blog'], function () {
+    Route::get('/blog', 'IndexController')->name('blog.main.index');
+});
+
 // Роуты админ панели
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function() {

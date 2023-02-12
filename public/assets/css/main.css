@@ -485,13 +485,16 @@ section {
 /*--------------------------------------------------------------
 # Posts
 --------------------------------------------------------------*/
-.post-entry-1 {
+.post-entry-1{
   margin-bottom: 5px;
+}
+
+.main-tile .post-entry-1 {
   /* box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5); */
   transition: transform 0.3s ease-in-out;
 }
 
-.post-entry-1:hover {
+.main-tile .post-entry-1:hover {
   box-shadow: 4px 3px 5px rgba(0, 0, 0, 0.5);
   cursor: pointer;
   transform: scale(1.075);
@@ -511,6 +514,10 @@ section {
 }
 
 .post-entry-1 h2 a {
+  color: var(--color-black);
+}
+
+.main-tile .post-entry-1 h2 a {
   color: rgb(215,205,185);
   /* color: var(--color-black); */
 }
