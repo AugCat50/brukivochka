@@ -14,7 +14,7 @@ class Comment extends Model
     protected $guarded = false;
 
     /**
-     * Один ко многим
+     * Один ко многим (related, foreignKey, ownerKey)
      */
     public function user()
     {

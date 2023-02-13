@@ -9,7 +9,7 @@ class IndexController extends Controller
     //Метод по умолчанию.
     public function __invoke()
     {
-        // $userName = auth()->user()->name;
-        return view('personal.main.index');
+        $userName = auth()->user()->name;
+        return view('personal.main.index', compact('userName'));
     }
 }

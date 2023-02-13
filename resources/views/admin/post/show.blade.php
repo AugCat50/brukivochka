@@ -34,7 +34,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->  
             <div class="row">
-                <div class="col-4">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
@@ -48,8 +48,20 @@
                                         <td>{{ $post->title }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Количетсво постов</td>
-                                        <td>#</td>
+                                        <td>Изображение превью</td>
+                                        <td><img class="admin-image" src="{{ asset('storage/'. $post->preview_image) }}" alt="Изображение превью"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Главное изображение</td>
+                                        <td><img class="admin-image" src="{{ asset('storage/'. $post->main_image) }}" alt="Главное изображение"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Текст</td>
+                                        <td>
+                                            <div class="admin-post-content">
+                                            {!! $post->content !!}
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

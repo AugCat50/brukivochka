@@ -59,3 +59,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.posts__row{
+    min-height: 40vh;
+}
+
+.posts__row__no-posts{
+    text-align: center;
+}
+
+.pills-tabContent__img{
+    max-width: 300px;
+    width: 100%;
+  }

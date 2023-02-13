@@ -14,14 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Роуты главной страницы
+// Роут главной страницы - home
 Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
-Route::group(['namespace' => 'App\Http\Controllers\Blog'], function () {
-    Route::get('/blog', 'IndexController')->name('blog.main.index');
+// Роуты блога
+Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {
+    Route::get('/'      , 'IndexController')->name('blog.post.index');
+    Route::get('/{post}', 'ShowController') ->name('blog.post.show');
+
+    // blog/1/comment --- nested route
+    //Другой вариант создать для комментариев полностью отдельный неймспейс
+    Route::group(['namespace' => 'Comment', 'prefix' => '{post}/comments'], function() {
+        Route::post('/', 'StoreController')->name('blog.post.comment.store');
+    });
 });
+
+// Роуты постов
+// Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
+//     Route::get('/post');
+// });
 
 // Роуты админ панели
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
@@ -72,6 +85,7 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     });
 });
 
+// Роуты админ панели пользователей не обладающий админ правами
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['namespace' => 'App\Http\Controllers\Personal', 'prefix' => 'personal'], function () {
         Route::group(['namespace' => 'Main'], function () {
@@ -79,7 +93,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::group(['namespace' => 'Liked'], function () {
-            Route::get   ('/liked' , 'IndexController')  ->name('personal.liked.index');   
+            Route::get   ('/liked' , 'IndexController') ->name('personal.liked.index');   
             Route::delete('/{post}', 'DeleteController')->name('personal.liked.delete');
         });
 

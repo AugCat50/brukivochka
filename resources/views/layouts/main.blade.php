@@ -5,7 +5,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Brukivochka</title>
+  <title>
+    @if(isset($pageTitle))
+      {{ $pageTitle }}
+    @else
+      Brukivochka
+    @endif
+  </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -57,7 +63,7 @@
         <ul>
           <!-- <li><a href="index.html">Главная</a></li> -->
           <li><a href="about.html">Портфолио</a></li>
-          <li><a href="single-post.html">Блог</a></li>
+          <li><a href="{{ route('blog.post.index') }}">Блог</a></li>
           <li class="dropdown"><a href="category.html"><span>Услуги</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="search-result.html">Search Result</a></li>
@@ -79,6 +85,12 @@
 
           <li><a href="about.html">О нас</a></li>
           <li><a href="contact.html">Контакты</a></li>
+          @auth
+          <li><a href="{{ route('personal.main.index') }}">{{ auth()->user()->name }}</a></li>
+          @endauth
+          @guest
+          <li><a href="{{ route('personal.main.index') }}">Войти</a></li>
+          @endguest
         </ul>
       </nav><!-- .navbar -->
 

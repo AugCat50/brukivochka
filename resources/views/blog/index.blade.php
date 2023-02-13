@@ -8,29 +8,33 @@
     <!-- ======= Post Grid Section ======= -->
     <section id="posts" class="posts">
         <div class="container" data-aos="fade-up">
-            <div class="row g-5">
+            <div class="row g-5 posts__row">
 
                 <!-- Если в коллекции не 0 объектов, выводим нулевой пост (крайний левый пост) -->
                 @if($posts->count())
-
                     <div class="col-lg-4">
                         <div class="post-entry-1 lg">
-                            <a href="single-post.html"><img src="{{'storage/'. $posts[0]->preview_image }}" alt="" class="img-fluid"></a>
-                            <div class="post-meta"><span class="date">{{$posts[0]->category->title}}</span> <span class="mx-1">&bullet;</span>
-                                <span>{{$posts[0]->created_at}}</span></div>
-                            <h2><a href="single-post.html">{{$posts[0]->title}}</a></h2>
+                            <a href="{{ route('blog.post.show', $posts[0]->id) }}"><img src="{{'storage/'. $posts[0]->preview_image }}" alt="" class="img-fluid"></a>
+                            <div class="post-meta">
+                                <span class="date">{{$posts[0]->category->title}}</span>
+                                <span class="mx-1">&bullet;</span>
+                                <span>{{$posts[0]->created_at}}</span>
+                            </div>
+                            <h2>
+                                <a href="{{ route('blog.post.show', $posts[0]->id) }}">{{$posts[0]->title}}</a>
+                            </h2>
                             <p class="mb-4 d-block">{{$posts[0]->content}}</p>
-
+                            {{$posts[0]->content}}
                             <div class="d-flex align-items-center author">
                                 <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
                                 <div class="name">
-                                    <h3 class="m-0 p-0">Cameron Williamson</h3>
+                                    <h3 class="m-0 p-0">Автор</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                 
-                @endif
+                
                 
            
 
@@ -156,11 +160,16 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    {{ $posts->links() }}
+                </div>
+
+                @else
+                <h2 class="posts__row__no-posts">Постов пока нет</h2>
+                @endif
             </div> <!-- End .row -->
 
-            <div class="row">
-                {{ $posts->links() }}
-            </div>
+
         </div>
     </section> <!-- End Post Grid Section -->
 

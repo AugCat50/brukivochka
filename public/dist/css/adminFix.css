@@ -1,0 +1,7 @@
+.admin-image{
+    max-width: 60vw;
+}
+
+.admin-post-content *{
+    white-space: normal !important;
+  }
