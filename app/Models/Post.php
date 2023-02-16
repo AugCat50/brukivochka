@@ -12,7 +12,10 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table   = 'posts';
+    protected $table = 'posts';
+
+    // Посчитать отношения, перечисленные в массиве. Хз как это работает, оно автоматизировано из коробки. См доки
+    protected $withCount = ['likedUsers'];
     
     //Аналог fillable, просто отключает защиту на запись всех полей
     protected $guarded = false;

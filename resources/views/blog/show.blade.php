@@ -17,7 +17,23 @@
                             <span>{{ $date->format('H:i') }}</span>
                             <span class="mx-1">&bullet; </span>
                         </div>
-                        <h1 class="mb-5">{{ $post->title }}</h1>
+                        <div class="blog__like-container">
+                            <h1 class="mb-5">{{ $post->title }}</h1>
+                            @auth()
+                                <form class="like" action="{{ route('blog.post.like.store', $post->id) }}" method="post">
+                                    @csrf
+                                    <span>{{ $post->liked_users_count }}</span>
+                                    <button type="submit" class="border-0 bg-transparent">
+                                        @if(auth()->user()->likedPosts->contains($post->id))
+                                            <i class="icon fas fa-heart"></i>
+                                        @else
+                                            <i class="icon far fa-heart"></i>
+                                        @endif
+                                    </button>
+                                </form>
+                            @endauth
+                        </div>
+
                         <p><span class="firstcharacter">В</span>ступительный абзац. Превью текст</p>
                         <p>Sunt reprehenderit, hic vel optio odit est dolore, distinctio iure itaque enim pariatur
                             ducimus. Rerum soluta, perspiciatis voluptatum cupiditate praesentium repellendus quas

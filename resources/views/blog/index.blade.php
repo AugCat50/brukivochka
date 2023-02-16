@@ -20,11 +20,41 @@
                                 <span class="mx-1">&bullet;</span>
                                 <span>{{$posts[0]->created_at}}</span>
                             </div>
-                            <h2>
-                                <a href="{{ route('blog.post.show', $posts[0]->id) }}">{{$posts[0]->title}}</a>
-                            </h2>
-                            <p class="mb-4 d-block">{{$posts[0]->content}}</p>
-                            {{$posts[0]->content}}
+                            <div class="blog__like-container">
+                                <h2 class="blog__post-prev-h2">
+                                    <a href="{{ route('blog.post.show', $posts[0]->id) }}">{{$posts[0]->title}}</a>
+                                </h2>
+                                @auth()
+                                    <form class="like" action="{{ route('blog.post.like.store', $posts[0]->id) }}" method="post">
+                                        @csrf
+                                        <span>{{ $posts[0]->liked_users_count }}</span>
+                                        <button type="submit" class="border-0 bg-transparent">
+                                            @if(auth()->user()->likedPosts->contains($posts[0]->id))
+                                                <i class="icon fas fa-heart"></i>
+                                            @else
+                                                <i class="icon far fa-heart"></i>
+                                            @endif
+                                        </button>
+                                    </form>
+                                @endauth
+                                @guest
+                                    <div>
+                                        <span>{{ $posts[0]->liked_users_count }}</span>
+                                        <i class="icon far fa-heart"></i>
+                                    </div>
+                                @endguest
+                            </div>
+
+                            
+                            <!-- <div> 
+                                <form action="#">
+                                    <button type="submit" class="border-0 bg-transparent">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div> -->
+
+                            {!! $posts[0]->content !!}
                             <div class="d-flex align-items-center author">
                                 <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
                                 <div class="name">
@@ -61,13 +91,37 @@
                             @if($posts->couner != 0)
                                     <div class="post-entry-1">
                                         <div class="post-entry-1__preview-container">
-                                            <a href="single-post.html">
+                                            <a href="{{ route('blog.post.show', $post->id) }}">
                                                 <img src="{{ 'storage/'. $post->preview_image }}" alt="" class="img-fluid">
                                             </a>
                                         </div>
-                                        <div class="post-meta"><span class="date">{{ $post->category->title }}</span> <span
-                                                class="mx-1">&bullet;</span> <span>{{ $post->created_at }}</span></div>
-                                        <h2><a href="single-post.html">{{ $post->title }}</a></h2>
+                                        <div class="post-meta">
+                                            <span class="date">{{ $post->category->title }} </span>
+                                            <span class="mx-1">&bullet; </span>
+                                            <span>{{ $post->created_at }}</span>
+                                        </div>
+                                        <div class="blog__like-container">
+                                            <h2 class="blog__post-prev-h2"><a href="single-post.html">{{ $post->title }}</a></h2>
+                                            @auth()
+                                            <form class="like" action="{{ route('blog.post.like.store', $post->id) }}" method="post">
+                                                @csrf
+                                                <span>{{ $post->liked_users_count }}</span>
+                                                <button type="submit" class="border-0 bg-transparent">
+                                                    @if(auth()->user()->likedPosts->contains($post->id))
+                                                        <i class="icon fas fa-heart"></i>
+                                                    @else
+                                                        <i class="icon far fa-heart"></i>
+                                                    @endif
+                                                </button>
+                                            </form>
+                                            @endauth
+                                            @guest
+                                                <div>
+                                                    <span>{{ $post->liked_users_count }}</span>
+                                                    <i class="icon far fa-heart"></i>
+                                                </div>
+                                            @endguest
+                                        </div>
                                     </div>
                             @endif
 
@@ -141,9 +195,11 @@
                                     @foreach ($likedPosts as $post)
                                         <li>
                                             <a href="single-post.html">
+                                                @if($post->preview_image)
                                                 <div class="trending-post__preview-container">
                                                     <img class="img-fluid trending-post__preview" src="{{ 'storage/'. $post->preview_image }}" alt="">
                                                 </div>
+                                                @endif
                                                 
                                                 <span class="number">{{$counter}}</span>
                                                 <h3>{{ $post->title }}</h3>

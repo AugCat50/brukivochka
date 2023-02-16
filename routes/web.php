@@ -19,15 +19,27 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
+// Route::group(['namespace' => 'App\Http\Controllers\Category', 'prefix' => 'categories'], function () {
+//     Route::get('/', 'IndexController')->name('category.index');
+// });
+
 // Роуты блога
 Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {
-    Route::get('/'      , 'IndexController')->name('blog.post.index');
-    Route::get('/{post}', 'ShowController') ->name('blog.post.show');
+    Route::get('/'      , 'IndexController')   ->name('blog.post.index');
+    Route::get('/{post}', 'ShowController')    ->name('blog.post.show');
 
     // blog/1/comment --- nested route
     //Другой вариант создать для комментариев полностью отдельный неймспейс
     Route::group(['namespace' => 'Comment', 'prefix' => '{post}/comments'], function() {
         Route::post('/', 'StoreController')->name('blog.post.comment.store');
+    });
+
+    Route::group(['namespace' => 'Like', 'prefix' => '{post}/likes'], function() {
+        Route::post('/', 'StoreController')->name('blog.post.like.store');
+    });
+
+    Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
+        Route::get   ('/{category}', 'ShowController')->name('blog.post.category.show');
     });
 });
 
@@ -109,3 +121,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::fallback(function() {
+//     dd('fall');
+// });

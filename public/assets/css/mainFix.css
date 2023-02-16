@@ -71,4 +71,30 @@
 .pills-tabContent__img{
     max-width: 300px;
     width: 100%;
-  }
+}
+
+/* .like
+{
+    float: right;
+} */
+
+/* .like .icon.fas{
+    color:#d7cdb9;
+}
+
+.like .icon.fas:hover{
+    color: var(--color-black);
+} 
+
+.like .icon.far:hover{
+    color:#d7cdb9;
+}*/
+
+.like .icon:hover{
+    color:#d7cdb9;
+}
+
+.blog__like-container{
+    display: flex;
+    justify-content: space-between;
+}
