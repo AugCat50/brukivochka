@@ -15,7 +15,6 @@
                             <span class="mx-1">&bullet; </span>
                             <span>{{ $date->isoFormat('MMM Do \'YY') }}, </span>
                             <span>{{ $date->format('H:i') }}</span>
-                            <span class="mx-1">&bullet; </span>
                         </div>
                         <div class="blog__like-container">
                             <h1 class="mb-5">{{ $post->title }}</h1>
@@ -56,6 +55,37 @@
                         </figure> -->
 
                     </div><!-- End Single Post Content -->
+
+                    <div class="post__share-block">
+                        <h5>Поделиться</h5>
+                        <div>
+                            <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
+                            <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
+                            <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
+                        </div>
+                        <div class="blog__like-container">
+                            <h2 class="blog__post-prev-h2"><a href="single-post.html">{{ $post->title }}</a></h2>
+                            @auth()
+                                <form class="like" action="{{ route('blog.post.like.store', $post->id) }}" method="post">
+                                    @csrf
+                                    <span>{{ $post->liked_users_count }}</span>
+                                    <button type="submit" class="border-0 bg-transparent">
+                                        @if(auth()->user()->likedPosts->contains($post->id))
+                                            <i class="icon fas fa-heart"></i>
+                                        @else
+                                            <i class="icon far fa-heart"></i>
+                                        @endif
+                                    </button>
+                                </form>
+                            @endauth
+                            @guest
+                                <div>
+                                    <span>{{ $post->liked_users_count }}</span>
+                                    <i class="icon far fa-heart"></i>
+                                </div>
+                            @endguest
+                        </div>
+                    </div>
 
                     <!-- ======= Comments ======= -->
                     <div class="comments">
@@ -177,9 +207,11 @@
                     <div class="aside-block">
 
                         <ul class="nav nav-pills custom-tab-nav mb-4" id="pills-tab" role="tablist">
+                            @if ($relatedPosts->count())
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link  active" id="pills-trending-tab" data-bs-toggle="pill" data-bs-target="#pills-trending" type="button" role="tab" aria-controls="pills-trending" aria-selected="false">Схожие</button>
                             </li>
+                            @endif
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">Тренд</button>
                             </li>
@@ -191,6 +223,7 @@
                         <div class="tab-content" id="pills-tabContent">
 
                             <!-- схожие -->
+                            @if ($relatedPosts->count())
                             <div class="tab-pane fade show active" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
                                 @foreach ($relatedPosts as $relatedPost)
                                     <div class="post-entry-1 border-bottom">
@@ -204,7 +237,9 @@
                                         <span class="author mb-3 d-block">Jenny Wilson</span>
                                     </div>
                                 @endforeach
-                            </div> <!-- End Trending -->
+                            </div>
+                            @endif
+                            <!-- End Trending -->
 
                             <!-- Popular тренд -->
                             <div class="tab-pane fade" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">

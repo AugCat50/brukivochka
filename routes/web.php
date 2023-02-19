@@ -19,9 +19,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
-// Route::group(['namespace' => 'App\Http\Controllers\Category', 'prefix' => 'categories'], function () {
-//     Route::get('/', 'IndexController')->name('category.index');
-// });
+Route::group(['namespace' => 'App\Http\Controllers\BlogCategory', 'prefix' => 'categories'], function () {
+    Route::get('/'          , 'IndexController')->name('category.index');
+    Route::get('/{category}', 'ShowController') ->name('category.show');
+});
 
 // Роуты блога
 Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {
@@ -38,9 +39,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], f
         Route::post('/', 'StoreController')->name('blog.post.like.store');
     });
 
-    Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
-        Route::get   ('/{category}', 'ShowController')->name('blog.post.category.show');
-    });
+
 });
 
 // Роуты постов

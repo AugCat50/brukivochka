@@ -100,6 +100,7 @@
                                             <span class="mx-1">&bullet; </span>
                                             <span>{{ $post->created_at }}</span>
                                         </div>
+
                                         <div class="blog__like-container">
                                             <h2 class="blog__post-prev-h2"><a href="single-post.html">{{ $post->title }}</a></h2>
                                             @auth()

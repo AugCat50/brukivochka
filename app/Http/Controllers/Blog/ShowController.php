@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\Post;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Post;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
 
 class ShowController extends Controller
 {
     //Метод по умолчанию
     public function __invoke(Post $post)
     {
-        $pageTitle = $post->title;
-        $date      = Carbon::parse($post->created_at);
+        $pageTitle  = $post->title;
+        $date       = Carbon::parse($post->created_at);
+        $categories = Category::all();
 
         $relatedPosts = Post::where('category_id', $post->category_id)
             ->where('id', '!=', $post->id)
@@ -21,6 +23,6 @@ class ShowController extends Controller
 
         $carbonInstance = new Carbon();
 
-        return view('blog.show', compact('post', 'pageTitle', 'date', 'relatedPosts', 'carbonInstance'));
+        return view('blog.show', compact('post', 'pageTitle', 'date', 'relatedPosts', 'carbonInstance', 'categories'));
     }
 }

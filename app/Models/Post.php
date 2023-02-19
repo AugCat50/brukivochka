@@ -16,6 +16,7 @@ class Post extends Model
 
     // Посчитать отношения, перечисленные в массиве. Хз как это работает, оно автоматизировано из коробки. См доки
     protected $withCount = ['likedUsers'];
+    protected $with = ['category', 'tags'];
     
     //Аналог fillable, просто отключает защиту на запись всех полей
     protected $guarded = false;
